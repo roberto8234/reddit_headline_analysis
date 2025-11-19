@@ -7,18 +7,24 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: right;
-            align-items: right;
-            min-height: 400px;
             margin: 0;
             padding: 20px;
             background-color: #f9f9f9;
+
+            /* IMPORTANT: remove flexbox, it breaks Tableau layout */
+            display: block;
+        }
+
+        #viz1763580110984 {
+            width: 100%;
+            max-width: 1400px; /* give Tableau more room */
+            margin: 0 auto;     /* optional centering */
         }
     </style>
 </head>
-<body> 
-    <div id="viz1763580110984" style="position: relative; width: 100%; max-width: 1200px;">
+<body>
+
+    <div id="viz1763580110984" style="position: relative;">
         <noscript>
             <a href="#">
                 <img alt="Dashboard 1"
@@ -49,7 +55,7 @@
     <script type="text/javascript">
         var divElement = document.getElementById('viz1763580110984');
         var vizElement = divElement.getElementsByTagName('object')[0];
-    
+
         if (divElement.offsetWidth > 800) {
             vizElement.style.width = '100%';
             vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
@@ -60,10 +66,11 @@
             vizElement.style.width = '100%';
             vizElement.style.height = '1127px';
         }
-    
+
         var scriptElement = document.createElement('script');
         scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
         vizElement.parentNode.insertBefore(scriptElement, vizElement);
     </script>
+
 </body>
 </html>
