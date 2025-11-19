@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Headline Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 15px 25px;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .tab-button.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .content-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .visualization-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .visualization-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background-color: white;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reddit Headline Analysis</h1>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'home')">Home</button>
+            <button class="tab-button" onclick="openTab(event, 'visual1')">Visual 1</button>
+            <button class="tab-button" onclick="openTab(event, 'visual2')">Visual 2</button>
+            <button class="tab-button" onclick="openTab(event, 'visual3')">Visual 3</button>
+            <button class="tab-button" onclick="openTab(event, 'visual4')">Visual 4</button>
+            <button class="tab-button" onclick="openTab(event, 'visual5')">Visual 5</button>
+        </div>
+
+        <div id="home" class="tab-content active">
+            <div class="content-section">
+                <h2>Welcome to Reddit Headline Analysis</h2>
+                <p>This project analyzes and compares headlines and reddit comments on the topics of immigration, climate change, and healthcare.</p>
+                <p>Navigate through the tabs above to explore different visualizations of the data.</p>
+            </div>
+        </div>
+
+        <div id="visual1" class="tab-content">
+            <div class="content-section">
+                <h2>Visualization 1</h2>
+                <div class="visualization-container" id="vis1-container">
+                    <iframe src="visuals/visual1.html" onload="handleIframeLoad(this)" onerror="handleIframeError(this)"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="visual2" class="tab-content">
+            <div class="content-section">
+                <h2>Visualization 2</h2>
+                <div class="visualization-container" id="vis2-container">
+                    <iframe src="visuals/visual2.html" onload="handleIframeLoad(this)" onerror="handleIframeError(this)"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="visual3" class="tab-content">
+            <div class="content-section">
+                <h2>Visualization 3</h2>
+                <div class="visualization-container" id="vis3-container">
+                    <iframe src="visuals/visual3.html" onload="handleIframeLoad(this)" onerror="handleIframeError(this)"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="visual4" class="tab-content">
+            <div class="content-section">
+                <h2>Visualization 4</h2>
+                <div class="visualization-container" id="vis4-container">
+                    <iframe src="visuals/visual4.html" onload="handleIframeLoad(this)" onerror="handleIframeError(this)"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="visual5" class="tab-content">
+            <div class="content-section">
+                <h2>Visualization 5</h2>
+                <div class="visualization-container" id="vis5-container">
+                    <!-- This visualization will link to the JSON files -->
+                    <iframe src="visuals/visual5.html" onload="handleIframeLoad(this)" onerror="handleIframeError(this)"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // Show the selected tab and mark button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Handle iframe load event
+        function handleIframeLoad(iframe) {
+            // Check if the iframe loaded successfully
+            try {
+                // This will throw an error if the file doesn't exist
+                if (!iframe.contentDocument && !iframe.contentWindow) {
+                    handleIframeError(iframe);
+                }
+            } catch (e) {
+                // Cross-origin or file not found
+                console.log('Iframe loaded or waiting for content');
+            }
+        }
+
+        // Handle iframe error - show placeholder
+        function handleIframeError(iframe) {
+            var container = iframe.parentElement;
+            container.innerHTML = '<div class="placeholder-text">Visual HTML file not yet added. Place your HTML file in the visuals/ folder.</div>';
+        }
+
+        // Example function to load JSON data (can be used later for Visual 5)
+        async function loadJSONData() {
+            try {
+                const response1 = await fetch('data1.json');
+                const data1 = await response1.json();
+                
+                const response2 = await fetch('data2.json');
+                const data2 = await response2.json();
+                
+                console.log('Data loaded:', { data1, data2 });
+                // Process and display data here
+            } catch (error) {
+                console.error('Error loading JSON files:', error);
+            }
+        }
+    </script>
+</body>
+</html>
