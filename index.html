@@ -98,7 +98,7 @@
 
         .visualization-container iframe {
             width: 100%;
-            height: 600px;
+            min-height: 600px;
             border: none;
             background-color: white;
         }
@@ -203,10 +203,42 @@
                 // This will throw an error if the file doesn't exist
                 if (!iframe.contentDocument && !iframe.contentWindow) {
                     handleIframeError(iframe);
+                    return;
                 }
+                
+                // Resize iframe to fit its content
+                resizeIframe(iframe);
             } catch (e) {
                 // Cross-origin or file not found
                 console.log('Iframe loaded or waiting for content');
+            }
+        }
+        
+        // Resize iframe to fit its content without scrolling
+        function resizeIframe(iframe) {
+            try {
+                // Wait a bit for the content to fully render
+                setTimeout(function() {
+                    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    var body = iframeDoc.body;
+                    var html = iframeDoc.documentElement;
+                    
+                    // Get the full height of the content
+                    var height = Math.max(
+                        body.scrollHeight,
+                        body.offsetHeight,
+                        html.clientHeight,
+                        html.scrollHeight,
+                        html.offsetHeight
+                    );
+                    
+                    // Set the iframe height to the content height
+                    // Add a small buffer to prevent any potential scrollbars
+                    iframe.style.height = (height + 20) + 'px';
+                }, 100);
+            } catch (e) {
+                // If we can't access the iframe content (cross-origin), keep min-height
+                console.log('Cannot resize iframe due to cross-origin restrictions');
             }
         }
 
