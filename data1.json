@@ -1,0 +1,24 @@
+{
+  "title": "Dataset 1",
+  "description": "Reddit headline analysis data - Immigration topic",
+  "data": [
+    {
+      "id": 1,
+      "category": "immigration",
+      "sentiment": "positive",
+      "count": 150
+    },
+    {
+      "id": 2,
+      "category": "immigration",
+      "sentiment": "negative",
+      "count": 200
+    },
+    {
+      "id": 3,
+      "category": "immigration",
+      "sentiment": "neutral",
+      "count": 300
+    }
+  ]
+}

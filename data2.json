@@ -1,0 +1,42 @@
+{
+  "title": "Dataset 2",
+  "description": "Reddit headline analysis data - Climate Change and Healthcare",
+  "data": [
+    {
+      "id": 1,
+      "category": "climate_change",
+      "sentiment": "positive",
+      "count": 180
+    },
+    {
+      "id": 2,
+      "category": "climate_change",
+      "sentiment": "negative",
+      "count": 220
+    },
+    {
+      "id": 3,
+      "category": "climate_change",
+      "sentiment": "neutral",
+      "count": 250
+    },
+    {
+      "id": 4,
+      "category": "healthcare",
+      "sentiment": "positive",
+      "count": 190
+    },
+    {
+      "id": 5,
+      "category": "healthcare",
+      "sentiment": "negative",
+      "count": 210
+    },
+    {
+      "id": 6,
+      "category": "healthcare",
+      "sentiment": "neutral",
+      "count": 280
+    }
+  ]
+}

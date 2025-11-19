@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization 5 - JSON Data Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+        .data-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .data-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h2>Example Visualization Using JSON Data</h2>
+    <p>This example demonstrates how to load and display data from data1.json and data2.json</p>
+    
+    <div id="data1-section" class="data-section">
+        <h3>Data from data1.json</h3>
+        <div class="loading">Loading...</div>
+    </div>
+    
+    <div id="data2-section" class="data-section">
+        <h3>Data from data2.json</h3>
+        <div class="loading">Loading...</div>
+    </div>
+
+    <script>
+        // Load data from data1.json
+        fetch('../data1.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Loaded data1.json:', data);
+                displayData('data1-section', data);
+            })
+            .catch(error => {
+                console.error('Error loading data1.json:', error);
+                document.querySelector('#data1-section .loading').textContent = 'Error loading data';
+            });
+
+        // Load data from data2.json
+        fetch('../data2.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Loaded data2.json:', data);
+                displayData('data2-section', data);
+            })
+            .catch(error => {
+                console.error('Error loading data2.json:', error);
+                document.querySelector('#data2-section .loading').textContent = 'Error loading data';
+            });
+
+        // Function to display data in a table
+        function displayData(sectionId, data) {
+            const section = document.getElementById(sectionId);
+            
+            let html = `
+                <h3>${data.title}</h3>
+                <p>${data.description}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Sentiment</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.data.forEach(item => {
+                html += `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.category}</td>
+                        <td>${item.sentiment}</td>
+                        <td>${item.count}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+            `;
+            
+            section.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
